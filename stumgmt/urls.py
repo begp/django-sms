@@ -20,14 +20,9 @@ urlpatterns = [
     # Student registration
     path('student_registration/', views.student_registration_view, name='student_registration'),
 
-    # Mark Type
+    # MArk TYPE
     path('create_mark_type/', views.MarkTypeCreate.as_view(), name='create_mark_type'),
     path('edit_mark_type/<int:pk>', views.MarkTypeUpdate.as_view(), name='edit_mark_type'),
-    path('delete_mark_type/<int:pk>', views.MarkTypeDelete.as_view(), name='delete_mark_type'),
-
-    # Student Activity Mark
-    path('create_activity_mark/', views.StudentActivityMarkCreate.as_view(), name='create_activity_mark'),
-    path('edit_activity_mark/<int:pk>', views.StudentActivityMarkUpdate.as_view(), name='edit_activity_mark'),
-    path('delete_activity_mark/<int:pk>', views.StudentActivityMarkDelete.as_view(), name='delete_activity_mark'),
+    path('delete_mark_type/<int:pk>', views.MarkTypeDelete.as_view(), name='delete_mark_type')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

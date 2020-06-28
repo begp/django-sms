@@ -38,15 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'user',
-    'academy',
-    'staff_mgmt',
-    'stumgmt',
+    #third party aps
+    # 'crispy-forms'
 
+    # local apps
+    'user.apps.UserConfig',
+    'academy.apps.AcademyConfig',
+    'staff_mgmt.apps.StaffMgmtConfig',
+    'stumgmt.apps.StumgmtConfig',
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# CRISPY_TEMPLATE_PACK= 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,8 +130,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-
+TEACHER_MODEL = 'staff_mgmt.EmployeeInfo'
 AUTH_USER_MODEL = 'user.CustomUser'
+
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'

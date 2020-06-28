@@ -1,107 +1,65 @@
-{% load static %}
+
+<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.6">
-    <title>Dashboard Template · Bootstrap</title>
-    <!-- Bootstrap core CSS -->
-    <!--    <link href="{% static 'css/w3.css' %}" rel="stylesheet">-->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<meta charset="utf-8">
+ {% load static %}
+<title>{% block title %}Newspaper App{% endblock title %}</title>
+
+ <meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="{% static 'img/icons/favicon.ico' %}" rel="stylesheet">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css"  href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}" rel="stylesheet">
+<!--===============================================================================================-->
 
 
-    <meta name="theme-color" content="#563d7c">
 
-
-    <link href="{% static 'css/dashboard.css'%}" rel="stylesheet">
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-
-
+<!--===============================================================================================-->
 </head>
-<body>
 {% if user.is_authenticated %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar navbar-brand" href="{% url 'home' %}">SMART SCHOOL</a>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% if section == 'home' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% if section == 'academy' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'academics_list' %}">Academics</a>
+      </li>
+        <li class="nav-item {% if section == 'academy' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'list_employee' %}">Employee</a>
+      </li>
+
+    </ul>
 
 
-        <a href="{% url 'password_change' %} ">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="button">Change password</button>
-        </a>&nbsp;
-        <a href="{% url 'logout' %}">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="button">Log out</button>
-        </a>
+      <a href="{% url 'password_change' %} "> <button class="btn btn-outline-success my-2 my-sm-0" type="button">Change password</button></a>&nbsp;
+      <a href="{% url 'logout' %}"><button class="btn btn-outline-success my-2 my-sm-0" type="button">Log out</button></a>
 
-    </div>
-
+  </div>
 </nav>
 
 
-{% endif %}
-testetetetete
+<body  class="p-3 mb-2 bg-light text-dark">
+
+
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarContent"
-                    aria-controls="sidebarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="sidebar-sticky" id="sidebarContent">
-                <ul class="nav flex-column">
-                    <li class="nav-item {% if section == 'home' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'home' %}"><span data-feather="home"></span>Home <span
-                                class="sr-only">(current)</span></a>
-                    </li>
-
-                </ul>
-                <a href="#acd_submenu" data-toggle="collapse" aria-expanded="false"
-                   class="dropdown-toggle nav-link"><span data-feather="book"></span>
-                    Academics <span class="sr-only">(current)</span></a>
-                <ul class="collapse nav flex-column" id="acd_submenu">
-                    <!--                    <li class="nav-item {% if section == 'academy' %}active{% endif %}">-->
-                    <!--                        <a class="nav-link" href="{% url 'academics_list' %}">Academics</a>-->
-                    <!--                    </li>-->
-                    <li class="nav-item">
-                        <a href="{% url 'room' %}" class="nav-link">Room</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'grade' %}" class="nav-link">Grades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'section' %}" class="nav-link">Section</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'subject' %}" class="nav-link">Subjects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'teacher_assign' %}" class="nav-link">Assign Teacher</a>
-                    </li>
-
-
-                </ul>
-
-
-                <a href="#emp_submenu" data-toggle="collapse" aria-expanded="false"
-                   class="dropdown-toggle nav-link"><span data-feather="users"></span>
-                    Employee Management <span class="sr-only">(current)</span></a>
-                <ul class="collapse nav flex-column active" id="emp_submenu">
-                    <li class="nav-item">
-                        <a href="{% url 'add_employee' %}" class="nav-link">Add Employee</a>
-                    </li>
-                    <li class="nav-item {% if section == 'academy' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'list_employee' %}"></span>Employee</a>
-                    </li>
-                </ul>
+            <div class="sidebar-sticky">
 
                 <a href="#stu_submenu" data-toggle="collapse" aria-expanded="false"
                    class="dropdown-toggle nav-link"><span data-feather="users"></span>
@@ -114,34 +72,33 @@ testetetetete
                         <a href="{% url 'student_registration' %}" class="nav-link">Student Admission</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'create_mark_type' %}" class="nav-link">Add Mark Types</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'create_activity_mark' %}" class="nav-link">Add Student Mark</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'create_mark_type' %}" class="nav-link">Add Total Mark</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'create_mark_type' %}" class="nav-link">Student Results</a>
+                        <a href="{% url 'create_mark_type' %}" class="nav-link">Mark Types</a>
                     </li>
 
                 </ul>
-
             </div>
         </nav>
-
+        {% else %}
+        <body>
+        {% endif %}
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            {% block content %}{% endblock %}
-        </main>
-    </div>
-</div>
+    <div class="container">
+    <br>
+    <br>
 
-<script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/feather.min.js' %}"></script>
-<!--<script src="{% static 'js/Chart.min.js' %}"></script>-->
-<script src="{% static 'js/dashboard.js' %}"></script>
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</main>
+<!--&lt;!&ndash;===============================================================================================&ndash;&gt;-->
+<!--	-->
+
+<!--&lt;!&ndash;===============================================================================================&ndash;&gt;-->
+<!--	<script src="js/main.js"></script>-->
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </div>
 </body>
 </html>

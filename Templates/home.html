@@ -6,9 +6,19 @@
 {{message}}
 {%endfor%}
 
+
+
 {%endif%}
 {% if user.is_authenticated %}
-Hi {{ user.username }}!
+Hi {{user.username }}!
+
+
+{% ifequal user.groups.all.0.name "director" or  %}
+  This is Director
+{%include %}
+
+{% endifequal %}
+
 
 <p><a href="{% url 'list_all' %}">list all users</a>
 {% else %}

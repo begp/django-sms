@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-from .models import Book,Room
-
 
 from .models import Subject, Section, Grade, TeacherAssignment, Room
 

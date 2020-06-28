@@ -1,11 +1,10 @@
 from django.contrib import admin
 from .models import Student, Father, Mother, Guardian, ActivityMarkType, \
-    StudentActivityMark, StudentMark, StudentTotalMark, StudentProfile
+    StudentActivityMark, StudentMark, StudentTotalMark
 
 # Register your models here.
 
 admin.site.register(Student)
-admin.site.register(StudentProfile)
 admin.site.register(Father)
 admin.site.register(Mother)
 admin.site.register(Guardian)

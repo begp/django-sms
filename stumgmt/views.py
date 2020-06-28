@@ -3,18 +3,15 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import View
 
-from .models import Student, StudentProfile, Father, Mother, Guardian, ActivityMarkType, StudentActivityMark
+from .models import Student, StudentProfile, Father, Mother, Guardian, ActivityMarkType
 from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from .forms import StudentRegistrationForm, FatherInfo, MotherInfo, GuardianInfo
 
 
 # Create your views here.
-from academy.models import Grade, Section
-
-
-def student(request):
-    return render(request, 'base.html')
+# def student(request):  no idea what it does
+#     return render(request, 'base.html')
 
 
 class StudentListView(generic.ListView):
@@ -86,11 +83,11 @@ class StudentUpdateView(View):
         stud = get_object_or_404(Student, id=pk)
         stud_form = StudentRegistrationForm(instance=stud)
         father = Student.objects.select_related('father_id').get(id=pk)
-        father_form = FatherInfo(prefix=str(father.pk), instance=stud.father_id)
+        father_form = [FatherInfo(prefix=str(father.pk), instance=stud.father_id)]
         mother = Student.objects.select_related('mother_id').get(id=pk)
-        mother_form = MotherInfo(prefix=str(mother.pk), instance=stud.mother_id)
+        mother_form = [MotherInfo(prefix=str(mother.pk), instance=stud.mother_id)]
         guardian = Student.objects.select_related('guardian_id').get(id=pk)
-        guardian_form = GuardianInfo(prefix=str(guardian.pk), instance=stud.guardian_id)
+        guardian_form = [GuardianInfo(prefix=str(guardian.pk), instance=stud.guardian_id)]
         template = 'stumgmt/student_update.html'
         context = {'form1': stud_form, 'form2': father_form, 'form3': mother_form, 'form4': guardian_form}
         return render(request, template, context)
@@ -100,6 +97,7 @@ class StudentUpdateView(View):
         stud_form = StudentRegistrationForm(request.POST, instance=stud)
         father = Student.objects.select_related('father_id').get(id=pk)
         father_form = FatherInfo(request.POST, prefix=str(father.pk), instance=stud.father_id)
+        print(father_form.data)
         mother = Student.objects.select_related('mother_id').get(id=pk)
         mother_form = MotherInfo(request.POST, prefix=str(mother.pk), instance=stud.mother_id)
         guardian = Student.objects.select_related('guardian_id').get(id=pk)
@@ -168,7 +166,7 @@ class StudentProfileDelete(generic.DeleteView):
 
 
 ######################################################################
-# Student MarksTypes CRUD Operations
+# Student Marks CRUD Operations
 ######################################################################
 
 
@@ -181,7 +179,6 @@ class MarkTypeCreate(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super(MarkTypeCreate, self).get_context_data(**kwargs)
         context['marks'] = ActivityMarkType.objects.order_by('grade')
-        context['out_of_60'] = ActivityMarkType.objects.filter
         return context
 
 
@@ -196,34 +193,3 @@ class MarkTypeDelete(generic.DeleteView):
     model = ActivityMarkType
     template_name = 'stumgmt/delete_mark_type.html'
     success_url = reverse_lazy('create_mark_type')
-
-
-######################################################################
-# Student  CRUD Operations
-######################################################################
-
-
-class StudentActivityMarkCreate(generic.CreateView):
-    model = StudentActivityMark
-    fields = '__all__'
-    template_name = 'stumgmt/student_activity_mark_create.html'
-    success_url = reverse_lazy('create_activity_mark')
-
-    def get_context_data(self, **kwargs):
-        context = super(StudentActivityMarkCreate, self).get_context_data(**kwargs)
-        context['student'] = StudentActivityMark.objects.order_by('student_profile')
-        # context['student_grade'] = Grade.objects.all()
-        return context
-
-
-class StudentActivityMarkUpdate(generic.UpdateView):
-    model = StudentActivityMark
-    fields = '__all__'
-    template_name = 'stumgmt/student_activity_mark_create.html'
-    success_url = reverse_lazy('create_activity_mark')
-
-
-class StudentActivityMarkDelete(generic.DeleteView):
-    model = StudentActivityMark
-    template_name = 'stumgmt/student_activity_mark_delete.html'
-    success_url = reverse_lazy('create_activity_mark')

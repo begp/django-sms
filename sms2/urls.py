@@ -10,7 +10,9 @@ urlpatterns = [
     path('students/', include('stumgmt.urls')),
     path('academics/', include('academy.urls')),
     path('employee/', include('staff_mgmt.urls')),
+    path('permission-denied', TemplateView.as_view(template_name='permission_denied.html')),
     path('', TemplateView.as_view(template_name='home.html')),
+
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

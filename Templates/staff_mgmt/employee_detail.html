@@ -10,9 +10,6 @@
 }
 </style>
 
-
-
-
 <div class="card w-100">
 
     <div class="card-body">
@@ -41,6 +38,35 @@
                          <div class="row">
                                <p><small class="text-muted" >Gender:</small>{{ object.gender.choice }}</p>
                          </div>
+                     </div>
+                    <div class="col-sm-4">
+
+                        {%if object.profile.employee_role%}
+
+
+                        <div class="row">
+                            <a href="{% url 'edit_profile' object.profile.user_name_id%}"> <button type="button" class="btn btn-primary ">Edit Profile </button></a><br>
+                        <a href="{% url 'delete_profile' object.profile.user_name_id%}"> <button type="button" class="btn btn-primary ">Delete Profile </button></a><br>
+                        <a href="{% url 'profile_detail' object.profile.user_name_id%}"> <button type="button" class="btn btn-primary ">Details Profile </button></a><br>
+
+                        </div>
+                         <div class="row">
+                             <p><small class="text-muted" >full Name:</small> {{ object.profile.name }}</p>
+                         </div>
+                         <div class="row">
+                         <p><small class="text-muted" >account username :</small> {{ object.profile.user_name }} </p>
+                         </div>
+                         <div class="row">
+                         <p><small class="text-muted" >Employee Role:</small> {{ object.profile.employee_role }} </p>
+                         </div>
+                         <div class="row">
+                               <p><small class="text-muted" >Gender:</small>{{ object.profile.salary }}</p>
+                         </div>
+                        {% else %}
+                        <div class="row">
+                             <a href="{% url 'create_profile' object.id%}"> <button type="button" class="btn btn-primary ">Create Profile</button></a><br>
+                          </div>
+                        {%endif%}
                      </div>
 
                 </div>

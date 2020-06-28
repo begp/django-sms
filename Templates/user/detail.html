@@ -7,15 +7,9 @@
 <div class="info">
 username :{{ users.username }}
 </a>
-    {% with u users.teacher %}
-        Subject:&nbsp;
-        {% for ur in u.subject.all %}
-            {{ur}}
-        {%endfor%}
-    Section:&nbsp;
-        {% for ur in u.section.all %}
-            {{ur.classes}}
-        {%endfor%}
+     {{users.profile.employee_role}}
+
+
 
 </div>
 </div>

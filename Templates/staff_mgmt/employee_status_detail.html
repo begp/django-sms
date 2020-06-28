@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Details{% endblock title %}
+{% block content %}
+<style>
+    #image-size {
+
+  width: 200px;
+  height: 220px;
+
+}
+</style>
+
+<div class="card w-100">
+
+    <div class="card-body">
+         <h5 class="card-title">Employee details</h5>
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <img id = 'image-size'  src="{{object.name.employee_image.url}}" alt="blakka" class="img-thumbnail">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <p><small class="text-muted" >Name:</small> {{ object.name.first_name|capfirst}} {{ object.name.father_name|capfirst }} {{ object.name.grand_father_name|capfirst }} </p>
+                        </div>
+                        <div class="row">
+                            <p><small class="text-muted" >Job desciption:</small> {{ object.employee_role|capfirst }}</p>
+                        </div>
+
+                        <div class="row">
+                            <p><small class="text-muted" >Email :</small> {{ object.email }}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-8">
+                        <div class="table-responsive-lg">
+
+                                <table class="table table-striped table-hover ">
+                                    <caption>List of users</caption>
+                                  <thead class="thead-dark">
+                                    <tr>
+                                      <th scope="col">periods</th>
+                                      <th scope="col">Monday</th>
+                                      <th scope="col">Tuesday</th>
+                                      <th scope="col">Wednesday</th>
+                                      <th scope="col">Thursday</th>
+                                      <th scope="col">Friday</th>
+                                 </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">1st</th>
+                                      <td>----</td>
+                                        <td>---</td>
+                                      <td>9th2</td>
+
+                                        <td>10th2</td>
+                                      <td>---</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">2nd</th>
+                                      <td>9th2</td>
+                                      <td>9th3</td>
+                                      <td>---</td>
+                                        <td>---</td>
+                                        <td>10th3</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">3rd</th>
+                                      <td>---</td>
+                                      <td>10th3</td>
+                                      <td>---</td>
+                                        <td>9th2</td>
+                                        <td>---</td>
+
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">4th</th>
+                                      <td>---</td>
+                                      <td>9th2</td>
+                                      <td>10th3</td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">5th</th>
+                                      <td>10th3</td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                      <td>9th2</td>
+                                      <td>---</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">6th</th>
+                                      <td>9th2</td>
+                                      <td>---</td>
+                                      <td>9th3</td>
+                                        <td>---</td>
+                                        <td>10th3</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        {%if object.teachers.subject.all %}
+                        <div class="table-responsive-lg">
+
+                                <table class="table table-striped table-hover ">
+
+                                  <thead class="thead-dark">
+                                    <tr>
+                                      <th scope="col">Subjects</th>
+                                      <th scope="col">Grade</th>
+                                      <th scope="col">Sections</th>
+                                 </tr>
+                                  </thead>
+                                     <tbody>
+                                     {%for x in object.teachers.subject.all%}
+                                    <tr>
+
+                                      <td>{{x.name}}</td>
+                                        <td>{{x.grade}}</td><td>
+                                        {%for xs in object.teachers.Section.all%}
+                                        {%if x.grade == xs.grade %}
+                                             {{xs.section}};&nbsp;
+                                           {%endif%}
+
+                                 {%endfor%}
+                                        </td>
+                                        </tr>
+                        {%endfor%}
+
+
+
+                                     </tbody>
+                                </table>
+
+                        {%else%}
+                         NOT ASSIGNED
+                        {%endif%}
+                        </div>
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+     </div>
+
+</div>
+</div>
+
+    {% endblock content %}

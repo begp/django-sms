@@ -1,8 +1,6 @@
 from django.db import models
-from django.db.models import CASCADE
+from django.db.models import CASCADE, PROTECT
 from django.urls import reverse
-
-from academy.models import Subject, Grade, Section
 
 ZOBA = [
     ('MAEKEL', 'MAEKEL'),
@@ -110,10 +108,26 @@ class Guardian(models.Model):
         return self.g_first_name
 
 
+class StudentProfile(models.Model):
+    stu = models.OneToOneField('Student', on_delete=CASCADE, related_name='stu_profile')
+    grade = models.PositiveIntegerField()
+    section = models.PositiveIntegerField()
+    roll_no = models.PositiveIntegerField()
+
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for a Guardian."""
+        return reverse('student-profile-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        stud = str(self.id)
+        return stud
+
+
 class Student(models.Model):
-    father_id = models.ForeignKey(Father, related_name='stu_father', on_delete=CASCADE)
-    mother_id = models.ForeignKey(Mother, related_name='stu_mother', on_delete=CASCADE)
-    guardian_id = models.ForeignKey(Guardian, related_name='stu_guardian', on_delete=CASCADE)
+    father_id = models.ForeignKey('Father', related_name='stu_father', on_delete=CASCADE)
+    mother_id = models.ForeignKey('Mother', related_name='stu_mother', on_delete=CASCADE)
+    guardian_id = models.ForeignKey('Guardian', related_name='stu_guardian', on_delete=CASCADE)
     first_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -138,21 +152,6 @@ class Student(models.Model):
         """Returns the url to access a detail record for a student."""
         return reverse('student-detail', args=[str(self.id)])
 
-
-class StudentProfile(models.Model):
-    stu = models.OneToOneField(Student, on_delete=CASCADE, related_name='stu_profile')
-    grade = models.ForeignKey(Grade, on_delete=CASCADE, related_name='stu_grade')
-    section = models.ForeignKey(Section, on_delete=CASCADE, related_name='stu_section')
-    roll_no = models.PositiveIntegerField()
-
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for a Guardian."""
-        return reverse('student-profile-detail', args=[str(self.id)])
-
-    def __str__(self):
-        """String for representing the Model object."""
-        stud = str(self.id)
-        return stud
 ##################################################################################
 # STUDENT MARK LIST COLLECTION MODELS
 ##################################################################################
@@ -160,8 +159,8 @@ class StudentProfile(models.Model):
 
 class ActivityMarkType(models.Model):
     name = models.CharField(max_length=30)
-    subject = models.ForeignKey(Subject, on_delete=CASCADE)
-    grade = models.ForeignKey(Grade, on_delete=CASCADE)
+    subject = models.CharField(max_length=30)
+    grade = models.PositiveIntegerField()
     out0f = models.PositiveIntegerField()
 
     def __str__(self):
@@ -169,56 +168,49 @@ class ActivityMarkType(models.Model):
 
 
 class StudentActivityMark(models.Model):
-    student_profile = models.ForeignKey(StudentProfile, on_delete=CASCADE, related_name='student_profile', default='')
-    subject = models.ForeignKey(Subject, on_delete=CASCADE, related_name='student_subject', default='')
-    grade = models.ForeignKey(Grade, on_delete=CASCADE, related_name='student_grade', default='')
-    section = models.ForeignKey(Section, on_delete=CASCADE, related_name='student_section', default='')
-    mark2 = models.PositiveIntegerField()
-    mark3 = models.PositiveIntegerField()
-    mark4 = models.PositiveIntegerField()
-    mark5 = models.PositiveIntegerField()
-    mark6 = models.PositiveIntegerField()
-    mark7 = models.PositiveIntegerField()
-    mark8 = models.PositiveIntegerField()
-    mark19 = models.PositiveIntegerField()
-    mark20 = models.PositiveIntegerField()
+    student = models.ForeignKey('Student', on_delete=CASCADE, related_name='student')
+    activity = models.ForeignKey('ActivityMarkType', on_delete=CASCADE, related_name='stu_activity')
+    subject = models.CharField(max_length=100)
+    grade = models.PositiveIntegerField()
+    section = models.PositiveIntegerField()
+    result = models.PositiveIntegerField()
     subject_teacher = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.student_profile
+        return self.student
 
 
 class StudentMark(models.Model):
-    student_mark = models.ForeignKey(StudentActivityMark, on_delete=CASCADE, related_name='stu_activity_mark')
+    student = models.ForeignKey('StudentActivityMark', on_delete=CASCADE, related_name='stu_activity_mark')
     semester = models.PositiveIntegerField()
-    subject = models.ManyToManyField(Subject)
-    grade = models.ManyToManyField(Grade)
+    grade = models.PositiveIntegerField()
+    subject = models.CharField(max_length=100)
     out_of_40 = models.PositiveIntegerField()
     out_of_60 = models.PositiveIntegerField()
     out_of_100 = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.student_mark
+        return self.student
 
 
 class StudentTotalMark(models.Model):
-    student_total_mark = models.ForeignKey(StudentMark, on_delete=CASCADE, related_name='stu_mark')
+    student = models.ForeignKey('StudentMark', on_delete=CASCADE, related_name='stu_mark')
     semester = models.PositiveIntegerField()
-    grade = models.ManyToManyField(Grade)
-    section = models.ManyToManyField(Section)
-    subject1 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject1')
-    subject2 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject2')
-    subject3 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject3')
-    subject4 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject4')
-    subject5 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject5')
-    subject6 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject6')
-    subject7 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject7')
-    subject8 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject8')
-    subject9 = models.OneToOneField(Subject, on_delete=CASCADE, related_name='subject9')
+    grade = models.PositiveIntegerField()
+    section = models.PositiveIntegerField()
+    sub1 = models.CharField(max_length=100)
+    sub2 = models.CharField(max_length=100)
+    sub3 = models.CharField(max_length=100)
+    sub4 = models.CharField(max_length=100)
+    sub5 = models.CharField(max_length=100)
+    sub6 = models.CharField(max_length=100)
+    sub7 = models.CharField(max_length=100)
+    sub8 = models.CharField(max_length=100)
+    sub9 = models.CharField(max_length=100)
     total = models.PositiveIntegerField()
     average = models.PositiveIntegerField()
     rank = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.student_total_mark
+        return self.student
 

@@ -1,5 +1,6 @@
+from django.conf import settings
 from django.db import models
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 MARITAL_STATUS = (
     ('1', 'SINGLE'),
@@ -20,7 +21,6 @@ REGION_CHOICE = (
     ('5', 'ZOBA MAEKEL'),
     ('6', 'ZOBA SOUTHER RED SEA'),
 
-
 )
 
 
@@ -28,10 +28,10 @@ class EmployeeInfo(models.Model):
     first_name = models.CharField(max_length=40)
     father_name = models.CharField(max_length=40)
     grand_father_name = models.CharField(max_length=40)
-    gender = models.CharField(choices=GENDER_CHOICE,max_length=5 )
+    gender = models.CharField(choices=GENDER_CHOICE, max_length=5)
     birth_date = models.DateField(default='1990-01-25')
     marital_status = models.CharField(choices=MARITAL_STATUS,
-                                      default='SINGLE',max_length=5)
+                                      default='SINGLE', max_length=5)
     children = models.PositiveSmallIntegerField()
     national_id = models.CharField(max_length=50)
     asc_code = models.CharField(max_length=40, unique=True)
@@ -43,7 +43,7 @@ class EmployeeInfo(models.Model):
     religion = models.CharField(max_length=30)
     nationality = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=30)
-    resume = models.FileField(upload_to='portfolio/staff/docs/', null= True)
+    resume = models.FileField(upload_to='portfolio/staff/docs/', null=True)
     gpa = models.DecimalField(decimal_places=3, max_digits=6)
     job_type = models.CharField(max_length=40)
     experience = models.CharField(max_length=40)
@@ -51,18 +51,26 @@ class EmployeeInfo(models.Model):
     disability = models.CharField(max_length=200)
 
     class Meta:
+        app_label = 'staff_mgmt'
         ordering = ('first_name',)
 
     def __str__(self):
-        return str(self.first_name + self.father_name)
+        return str(self.first_name + " " + self.father_name)
 
     def get_absolute_url(self):  # new
         return reverse('employee_details', args=[str(self.id)])
 
 
-
 class EmployeeStatus(models.Model):
-    name = models.OneToOneField(EmployeeInfo, on_delete=models.CASCADE)
+    user_name = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
+                                     primary_key=True, related_name='profile')
+    name = models.OneToOneField(EmployeeInfo, on_delete=models.CASCADE, related_name='profile')
     employee_role = models.CharField(max_length=40)
     salary = models.PositiveIntegerField()
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):  # new
+        return reverse_lazy('profile_detail', args=[str(self.user_name_id)])
