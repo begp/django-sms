@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Password Change{% endblock title %}
+{% block content %}
+{% for c in users%}
+
+<p>{{c.username}} </p>
+<a href="{% url 'reset-pwd' c.id %} " >&nbsp; <button class="button-primary"> RESET PASSWORD</button></a> <a href={{ c.get_absolute_url }} ><button>Details</button></a><br>
+
+<br>
+{% endfor%}
+{% endblock %}

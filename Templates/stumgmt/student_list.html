@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<!-- Student Info-->
+{% block content %}
+<h1>Student List</h1>
+{% if student_list %}
+<table>
+
+        {% for stud in student_list %}
+    <tr>
+        <td>
+            {{ stud.first_name }}
+        </td>
+        <td>
+            <a href="{{ stud.get_absolute_url }}">
+                <button class="btn btn-lg btn-primary">Details</button>
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'student-profile-detail' stud.id %}">
+                <button class="btn btn-lg btn-secondary">Profile</button>
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'create-profile' stud.id %}">
+                <button class="btn btn-lg btn-warning">create Profile</button>
+            </a>
+        </td>
+          </tr>
+        {% endfor %}
+
+</table>
+{% else %}
+<p>There are no students.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content%}
+
+<h2>Student Profile</h2>
+<table class="table stripped">
+    <thead>Student Profile Info</thead>
+
+    <tr>
+        <td>Student</td>
+        <td>{{ stu_profile.stu }}</td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>{{ stu_profile.stu.middle_name }}</td>
+    </tr>
+    <tr>
+        <td>Grade</td>
+        <td>{{ stu_profile.grade }}</td>
+    </tr>
+    <tr>
+        <td>Section</td>
+        <td>{{ stu_profile.section }}</td>
+    </tr>
+    <tr>
+        <td>Roll Number</td>
+        <td>{{ stu_profile.roll_no }}</td>
+    </tr>
+</table>
+<a href="{% url 'update-stu-profile' stu_profile.id %}"><button class="btn btn-lg btn-warning">Edit</button></a>
+<a href="{% url 'delete-stu-profile' stu_profile.id %}"><button class="btn btn-lg btn-danger">Delete</button></a>
+
+{% endblock%}

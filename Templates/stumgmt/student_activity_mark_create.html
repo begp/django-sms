@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card w-100">
+    <div class="card-body">
+        <h5 class="card-title">ADD Sudent Activity Mark</h5>
+        <!--        <form>-->
+
+        <!--        <select name="Grade">-->
+        <!--            {% for grade in student_grade %}-->
+        <!--                 <option value="{{grade.grade}}">{{grade.grade}}</option>-->
+        <!--            {% endfor %}-->
+        <!--        </select>-->
+        <!--            <select name="Section">-->
+        <!--            {% for sectin in student_section %}-->
+        <!--                 <option value="{{section.section}}">{{section.section}}</option>-->
+        <!--            {% endfor %}-->
+        <!--        </select>-->
+        <!--</form>-->
+        </form>
+        <form action="" method="post" class="form-inline flex">{% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-secondary" type="submit" value="Save">
+        </form>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Activity Mark</h5>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Student Name</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Home work</th>
+                <th scope="col">Class Work</th>
+                <th scope="col">Quiz</th>
+                <th scope="col">Home work</th>
+                <th scope="col">Class Work</th>
+                <th scope="col">Participation</th>
+                <th scope="col">Subject Teacher</th>
+                <th scope="col">Out of 60</th>
+
+            </tr>
+            </thead>
+            {% for student in student %}
+            <tr>
+                <td>
+                    {{ student.student_profile.stu}}
+                </td>
+                <td>
+                    {{ student.subject}}
+                </td>
+                <td>
+                    {{ student.mark2}}
+                </td>
+                <td>
+                    {{ student.mark3}}
+                </td>
+                <td>
+                    {{ student.mark4}}
+                </td>
+                <td>
+                    {{ student.mark5 }}
+                </td>
+                <td>
+                    {{ student.mark6}}
+                </td>
+                <td>
+                    {{ student.mark7 }}
+                </td>
+                <td>
+                    {{ student.subject_teacher }}
+                </td>
+                <td>
+                    {{student.mark2|add:student.mark3|add:student.mark4|add:student.mark5|add:student.mark6|add:student.mark7 }}
+
+
+                </td>
+                <td>
+                    <a href="{% url 'edit_activity_mark' student.id%}">
+                        <button type="button" class="btn btn-primary ">Edit</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'delete_activity_mark' student.id%}">
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+    </div>
+</div>
+{% endblock %}

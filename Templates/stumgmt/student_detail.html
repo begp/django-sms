@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Student Info</h2>
+<table class="table stripped">
+    <thead>Student Info</thead>
+
+    <tr>
+        <td>admission_date</td>
+        <td>{{ student_detail.admission_date }}</td>
+    </tr>
+    <tr>
+        <td>first_name</td>
+        <td>{{ student_detail.first_name }}</td>
+    </tr>
+    <tr>
+        <td>middle_name</td>
+        <td>{{ student_detail.middle_name }}</td>
+    </tr>
+    <tr>
+        <td>last_name</td>
+        <td>{{ student_detail.last_name }}</td>
+    </tr>
+    <tr>
+        <td>student_detail_pic</td>
+        <td>{{ student_detail.student_pic }}</td>
+    </tr>
+    <tr>
+        <td>ASC</td>
+        <td>{{ student_detail.ASC }}</td>
+    </tr>
+    <tr>
+        <td>zoba</td>
+        <td>{{ student_detail.zoba }}</td>
+    </tr>
+    <tr>
+        <td>sub_zoba</td>
+        <td>{{ student_detail.sub_zoba }}</td>
+    </tr>
+    <tr>
+        <td>nationality</td>
+        <td>{{ student_detail.nationality }}</td>
+    </tr>
+    <tr>
+        <td>religion</td>
+        <td>{{ student_detail.religion }}</td>
+    </tr>
+    <tr>
+        <td>gender</td>
+        <td>{{ student_detail.gender }}</td>
+    </tr>
+    <tr>
+        <td>birth_place</td>
+        <td>{{ student_detail.birth_place }}</td>
+    </tr>
+    <tr>
+        <td>origin</td>
+        <td>{{ student_detail.origin }}</td>
+    </tr>
+    <tr>
+        <td>ethnicity</td>
+        <td>{{ student_detail.ethnicity }}</td>
+    </tr>
+    <tr>
+        <td>DOB</td>
+        <td>{{ student_detail.DOB }}</td>
+    </tr>
+<tr>
+        <td>Father</td>
+        <td>{{ student_detail.father_id }}</td>
+    </tr>
+<tr>
+        <td>Mother</td>
+        <td>{{ student_detail.mother_id }}</td>
+    </tr>
+
+</table>
+<h2>Father Info</h2>
+<table class="table stripped">
+    <thead>Father Info</thead>
+    <tr>
+        <td>roll_no</td>
+        <td>{{ father_detail.father_id.f_first_name }}</td>
+    </tr>
+    <tr>
+        <td>admission_date</td>
+        <td>{{ father_detail.father_id.f_middle_name}}</td>
+    </tr>
+    <tr>
+        <td>first_name</td>
+        <td>{{ father_detail.father_id.f_last_name}}</td>
+    </tr>
+    <tr>
+        <td>middle_name</td>
+        <td>{{ father_detail.father_id.f_phone_no }}</td>
+    </tr>
+</table>
+<h2>Mother Info</h2>
+<table class="table stripped">
+    <thead>Mother Info</thead>
+    <tr>
+        <td>roll_no</td>
+        <td>{{ mother_detail.mother_id.m_first_name }}</td>
+    </tr>
+    <tr>
+        <td>admission_date</td>
+        <td>{{ mother_detail.mother_id.m_middle_name}}</td>
+    </tr>
+    <tr>
+        <td>first_name</td>
+        <td>{{ mother_detail.mother_id.m_last_name}}</td>
+    </tr>
+    <tr>
+        <td>middle_name</td>
+        <td>{{ mother_detail.mother_id.m_phone_no }}</td>
+    </tr>
+</table>
+<h2>Guardian Info</h2>
+<table class="table stripped">
+    <thead>Mother Info</thead>
+    <tr>
+        <td>roll_no</td>
+        <td>{{ guardian_detail.guardian_id.g_first_name }}</td>
+    </tr>
+    <tr>
+        <td>admission_date</td>
+        <td>{{ guardian_detail.guardian_id.g_middle_name}}</td>
+    </tr>
+    <tr>
+        <td>first_name</td>
+        <td>{{ guardian_detail.guardian_id.g_last_name}}</td>
+    </tr>
+    <tr>
+        <td>middle_name</td>
+        <td>{{ guardian_detail.guardian_id.g_phone_no }}</td>
+    </tr>
+</table>
+<a  href="{% url 'student-update' student_detail.id %}"><button class="btn btn-lg btn-warning">Edit</button></a>
+<a  href="{% url 'student-delete' student_detail.id %}"><button class="btn btn-lg btn-danger">Delete</button></a>
+
+{% endblock %}

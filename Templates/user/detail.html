@@ -1,0 +1,24 @@
+
+{% block content %}
+<h1>People</h1>
+<div id="people-list">
+
+<div class="user">
+<div class="info">
+username :{{ users.username }}
+</a>
+    {% with u users.teacher %}
+        Subject:&nbsp;
+        {% for ur in u.subject.all %}
+            {{ur}}
+        {%endfor%}
+    Section:&nbsp;
+        {% for ur in u.section.all %}
+            {{ur.classes}}
+        {%endfor%}
+
+</div>
+</div>
+
+</div>
+{% endblock %}

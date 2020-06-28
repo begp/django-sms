@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Books{% endblock title %}
+{% block content %}
+
+
+<div>
+<h5><a href="{% url 'room' %}">Room</a></h5>
+</div>
+<div>
+<h5><a href="{% url 'grade' %}">Grades</a></h5>
+</div>
+<div>
+<h5><a href="{% url 'section' %}">Section</a></h5>
+</div>
+<div>
+<h5><a href="{% url 'subject' %}">Subjects</a></h5>
+</div>
+
+<div>
+<h5><a href="{% url 'teacher_assign' %}">Assign a teacher</a></h5>
+</div>
+
+
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,14 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h5>Employee Info.</h5>
+<a href="{% url 'add_employee' %}" ><p> Add emploree</p></a>
+{% for employee in object_list %}
+
+<p>
+  {{forloop.counter }}, <a href="{% url 'employee_details' employee.id%}"> {{employee.first_name }} {{employee.father_name}} {{employee.grand_father_name }}
+</a></p>
+
+{% endfor%}
+{% endblock %}

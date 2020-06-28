@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="h1">Student Registration</h1>
+<div class="container">
+    <form  method="POST" action="{% url 'student_registration' %}">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark"><h4 class="form-card-header">Student info </h4></div>
+            <div class="card-body">
+                <div class="form-inline flex-row">
+                    {{ form1.as_p }}
+                </div>
+            </div>
+        </div><br><br>
+        <div class="card">
+            <div class="card-header bg-dark"><h4 class="form-card-header">Father info</h4></div>
+            <div class="card-body">
+
+                <div class="form-inline flex-row">
+
+                    {{ form2.as_p }}
+                </div>
+            </div>
+        </div><br><br>
+        <div class="card">
+            <div class="card-header bg-dark"><h4 class="form-card-header">Mother info</h4></div>
+            <div class="card-body">
+
+                <div class="form-inline flex-row">
+
+                    {{ form3.as_p }}
+                </div>
+            </div>
+        </div><br><br>
+        <div class="card">
+            <div class="card-header bg-dark"><h4 class="form-card-header">Guardian info </h4></div>
+            <div class="card-body">
+
+                <div class="form-inline">
+
+                    {{ form4.as_p }}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+    </form>
+
+</div>
+
+{% endblock %}

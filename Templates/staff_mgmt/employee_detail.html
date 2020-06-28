@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %}Employee Details{% endblock title %}
+{% block content %}
+<style>
+    #image-size {
+
+  width: 200px;
+  height: 220px;
+
+}
+</style>
+
+
+
+
+<div class="card w-100">
+
+    <div class="card-body">
+         <h5 class="card-title">Employee details</h5>
+
+         <a href="{% url 'edit_employee' object.id%}"> <button type="button" class="btn btn-primary ">EDIT</button></a><br>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img id = 'image-size'  src="{{object.employee_image.url}}" alt="blakka" class="img-thumbnail">
+                    </div>
+                     <div class="col-sm-4">
+                         <div class="row">
+                         <p><small class="text-muted" >Name :</small> {{ object.first_name }} </p>
+                         </div>
+                         <div class="row">
+                             <p><small class="text-muted" >Father's Name:</small> {{ object.father_name }}</p>
+                         </div>
+                         <div class="row">
+                         <p><small class="text-muted" >Grandfather Name :</small> {{ object.grand_father_name }} </p>
+                         </div>
+                         <div class="row">
+                         <p><small class="text-muted" >Birth date:</small> {{ object.birth_date }} </p>
+                         </div>
+                         <div class="row">
+                               <p><small class="text-muted" >Gender:</small>{{ object.gender.choice }}</p>
+                         </div>
+                     </div>
+
+                </div>
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >National ID:</small> {{ object.national_id }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >ASC :</small> {{ object.asc_code }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                         <p><small class="text-muted" >Marital status :</small> {{ object.marital_status  }} </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >  No. of children :</small> {{ object.children }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Region :</small> {{ object.region}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Sub region :</small> {{ object.sub_region }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Permanent Address :</small> {{ object.permanent_address  }}</p>
+                    </div>
+                        <div class="col-sm-4">
+                            <p><small class="text-muted" >Present Address :</small> {{ object.present_address  }}</p>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <p><small class="text-muted" >Phone No. :</small> {{ object.phone_number }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Nationality :</small> {{ object.nationality}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Religion</small> : {{ object.religion}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Education level : </small>{{ object.disability }} </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >GPA</small> : {{ object.disability }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Job Tpe :</small> {{ object.job_type }} </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><small class="text-muted" >Experience :</small> {{ object.experience }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <p><small class="text-muted" >Register in  :</small> {{ object.joining_date }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <p><small class="text-muted" >Related work attachments :</small> <a href='{{object.resume.url}}'> {{ object.resume.url }}</a> </p>
+                    </div>
+                </div>
+            </div>
+     </div>
+
+</div>
+{% endblock content %}
